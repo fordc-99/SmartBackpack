@@ -1,6 +1,8 @@
 import RPi.GPIO as GPIO
 import time
 
+from pushbullet import Pushbullet
+
 #set constants
 BUTTON_INPUT = 11
 FSR_INPUT = 16
@@ -16,6 +18,8 @@ GPIO.setup(BUTTON_INPUT, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 GPIO.setup(BUTTON_LED, GPIO.OUT)
 GPIO.setup(FSR_LED, GPIO.OUT)
+
+pb= Pushbullet('o.jq7HoVKz2DCWJ1Vxem7E9ZvRRVEKz27T')
 #end setup
 
 #button
@@ -27,6 +31,16 @@ while True:
         print('Button Pressed')
         time.sleep(0.2)
         turn_off(BUTTON_LED)
+        pb.push_note("SOS", "You requested help")
+    
+    fsr_state = GPIO.input(FSR_INPUT)
+    turn_off(FSR_LED)
+    if (fsr_state == False):
+        turn_on(FSR_LED)
+        print("fsr activated")
+        time.sleep(0.2)
+        turn_off(FSR_LED)
+        push = pb.push_note("Dehydration", "You need water")
                 
 
 def turn_on(port_num):

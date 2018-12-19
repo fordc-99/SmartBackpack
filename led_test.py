@@ -11,12 +11,13 @@ green = 36
 GPIO.setup(red,GPIO.OUT)
 GPIO.setup(green,GPIO.OUT)
 
-print "LED on"
-GPIO.output(red,GPIO.HIGH)
-GPIO.output(green,GPIO.HIGH)
+while True:
+    print "LED on"
+    GPIO.output(red,GPIO.HIGH)
+    GPIO.output(green,GPIO.HIGH)
 
-time.sleep(1)
+    time.sleep(1)
 
-print "LED off"
-GPIO.output(red,GPIO.LOW)
-GPIO.output(green,GPIO.LOW)
+    print "LED off"
+    GPIO.output(red,GPIO.LOW)
+    GPIO.output(green,GPIO.LOW)
